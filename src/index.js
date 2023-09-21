@@ -1,2 +1,4 @@
-import './style.css'
-console.log("Alert")
+import createPage from './website.js';
+import './style.css';
+
+createPage();
