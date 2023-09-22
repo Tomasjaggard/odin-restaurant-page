@@ -27,7 +27,7 @@ nav ul li{
     list-style: none;
 }
 
-nav ul li button{
+.nav-button{
     border: none;
     background: none;
     padding-top: 10px;
@@ -36,9 +36,13 @@ nav ul li button{
     transition: transform 0.3s ease-in-out
 }
 
-nav ul li button:hover{
+.nav-button:hover{
     cursor: pointer;
     transform: translateY(-5px);
+}
+
+.nav-button.active{
+    border-bottom: white 2px solid;
 }
 
 .main-page{
