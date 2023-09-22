@@ -1,3 +1,7 @@
+import homePage from "./home"
+import menuPage from "./menu"
+import contactPage from "./contact"
+
 const createHeader = () =>{
     const header = document.createElement('header')
     header.appendChild(createNav())
@@ -11,10 +15,19 @@ const createNav = () =>{
     const navUl = document.createElement('ul')
 
     const buttonLabels = ["Home", "Menu", "Contact"]
-    buttonLabels.forEach(label => {
+    const buttonFunctions = [homePage, menuPage, contactPage]
+    buttonLabels.forEach((label, index) => {
         const li = document.createElement('li');
         const button = document.createElement('button')
+        button.classList.add('nav-button')
         button.textContent = label
+        //new
+        button.addEventListener("click",(e)=>{
+            if (e.target.classList.contains('active')) return;
+            setActiveButton(button);
+            buttonFunctions[index]();
+        })
+
         li.appendChild(button)
         navUl.appendChild(li)
     });
@@ -24,27 +37,24 @@ const createNav = () =>{
     return navBar
 }
 
+function setActiveButton(button) {
+  const buttons = document.querySelectorAll(".nav-button");
+
+  buttons.forEach((btn) => {
+    if (btn != button) {
+      btn.classList.remove("active");
+    }
+  });
+
+  button.classList.add("active");
+}
+
 const createMain = () => {
-    const title = document.createElement('div')
+    const main = document.createElement('div')
+    main.classList.add('main')
+    main.appendChild(homePage())
 
-    const h1 = document.createElement('h1')
-    h1.textContent = 'Pizza Italiana'
-
-    const p = document.createElement('p')
-    p.textContent = 'Indulge your senses in the rich and authentic flavors of Italy with our exquisite selection of Italian cuisine.'
-
-    const img = document.createElement('img')
-    img.src = '../pizza.jpg';
-    img.alt = 'Pizza';
-    img.width = '250';
-    img.height = '150';
-
-    title.classList.add('main-page');
-    title.appendChild(h1)
-    title.appendChild(p)
-    title.appendChild(img)
-
-    return title //switch variable name to main upon completion
+    return main //switch variable name to main upon completion
 }
 
 const createFooter = () => {
