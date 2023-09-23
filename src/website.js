@@ -1,6 +1,6 @@
-import homePage from "./home"
-import menuPage from "./menu"
-import contactPage from "./contact"
+import loadHome from "./home"
+import loadMenu from "./menu"
+import loadContact from "./contact"
 
 const createHeader = () =>{
     const header = document.createElement('header')
@@ -10,20 +10,26 @@ const createHeader = () =>{
 }
 
 const createNav = () =>{
-    
     const navBar = document.createElement('nav')
+
+    const logo = document.createElement('p')
+    logo.classList.add('logo')
+    logo.textContent = 'Pizza Italiana'
+    navBar.appendChild(logo)
+
     const navUl = document.createElement('ul')
 
     const buttonLabels = ["Home", "Menu", "Contact"]
-    const buttonFunctions = [homePage, menuPage, contactPage]
+    const buttonFunctions = [loadHome, loadMenu, loadContact]
     buttonLabels.forEach((label, index) => {
         const li = document.createElement('li');
         const button = document.createElement('button')
         button.classList.add('nav-button')
         button.textContent = label
-        //new
+        if(index == 0) button.classList.add('active')
         button.addEventListener("click",(e)=>{
-            if (e.target.classList.contains('active')) return;
+            if (button.classList.contains('active')) return;
+            console.log('broken')
             setActiveButton(button);
             buttonFunctions[index]();
         })
@@ -52,9 +58,8 @@ function setActiveButton(button) {
 const createMain = () => {
     const main = document.createElement('div')
     main.classList.add('main')
-    main.appendChild(homePage())
-
-    return main //switch variable name to main upon completion
+    main.setAttribute("id", "main");
+    return main
 }
 
 const createFooter = () => {
@@ -74,7 +79,7 @@ const createPage = () =>{
     content.appendChild(createMain())
     content.appendChild(createFooter())
 
-    return content
+    loadHome();
 }
 
 export default createPage
